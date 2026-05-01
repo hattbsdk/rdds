@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Durga Das Seth Jewellers, est. 1932, Amritsar">
+  <defs>
+    <path id="topArc" d="M 30 100 A 70 70 0 0 1 170 100" fill="none"/>
+    <path id="bottomArc" d="M 30 100 A 70 70 0 0 0 170 100" fill="none"/>
+  </defs>
+  <circle cx="100" cy="100" r="78" fill="none" stroke="currentColor" stroke-width="0.7"/>
+  <circle cx="100" cy="100" r="72" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.5"/>
+  <text font-family="'Manrope', sans-serif" font-weight="500" font-size="9" letter-spacing="3.6" fill="currentColor">
+    <textPath href="#topArc" startOffset="50%" text-anchor="middle">DURGA DAS SETH JEWELLERS</textPath>
+  </text>
+  <text font-family="'Manrope', sans-serif" font-weight="500" font-size="8" letter-spacing="3" fill="currentColor" opacity="0.7">
+    <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">AMRITSAR &#183; SINCE 1932</textPath>
+  </text>
+  <path d="M 100 78 L 110 100 L 100 122 L 90 100 Z" fill="none" stroke="currentColor" stroke-width="0.7"/>
+  <text x="100" y="106" font-family="'Cormorant Garamond', serif" font-weight="500" font-size="13" letter-spacing="0.6" text-anchor="middle" fill="currentColor">DDS</text>
+  <circle cx="38" cy="100" r="1.4" fill="currentColor"/>
+  <circle cx="162" cy="100" r="1.4" fill="currentColor"/>
+</svg>
