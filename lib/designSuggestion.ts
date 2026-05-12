@@ -17,14 +17,29 @@ export type PieceType =
   | "earrings"
   | "ring"
   | "bangles"
-  | "suite"
+  | "unsure"
   | "open";
 
-export type Budget = "under-2" | "2-5" | "5-10" | "10-plus" | "open";
+export type Budget =
+  | "under-2"
+  | "2-5"
+  | "5-10"
+  | "10-plus"
+  | "10-15"
+  | "15-20"
+  | "20-plus"
+  | "open";
 
 export type Timeline = "1m" | "1-3m" | "3-6m" | "flexible";
 
-export type StonePref = "polki" | "kundan" | "solitaire" | "coloured" | "open";
+export type StonePref =
+  | "polki"
+  | "kundan"
+  | "gold"
+  | "diamond"
+  | "solitaire"
+  | "coloured"
+  | "open";
 
 export type DesignBrief = {
   occasion: Occasion;
@@ -54,7 +69,7 @@ const piecePhrase: Record<PieceType, string> = {
   earrings: "a pair of earrings",
   ring: "a ring",
   bangles: "a pair of bangles",
-  suite: "a full suite",
+  unsure: "a piece we'd discuss together",
   open: "the right piece",
 };
 
@@ -63,6 +78,9 @@ const budgetRange: Record<Budget, string> = {
   "2-5": "in the &#8377;2\u20135 lakh band",
   "5-10": "in the &#8377;5\u201310 lakh band",
   "10-plus": "above &#8377;10 lakh",
+  "10-15": "in the &#8377;10\u201315 lakh band",
+  "15-20": "in the &#8377;15\u201320 lakh band",
+  "20-plus": "above &#8377;20 lakh",
   open: "with no fixed ceiling",
 };
 
@@ -92,29 +110,24 @@ function weightDescriptor(axis: number): string {
 function stoneDescriptor(stone: StonePref): string {
   switch (stone) {
     case "polki":
-      return "Polki-led, with uncut diamonds set close on a 22K gold ground";
+      return "Polki-led, with uncut diamonds set close on a gold ground";
     case "kundan":
-      return "Kundan-led, in the old Mughal-court method that's been our bench's specialty";
+      return "Kundan-led, in the old method that's been the bench's specialty";
+    case "gold":
+      return "All gold \u2014 the work in the metal itself, set without stones";
+    case "diamond":
+      return "Diamond-led, with brilliant-cuts chosen for fire and clarity";
     case "solitaire":
-      return "Built around a certified solitaire, set in 18K";
+      return "Built around a single solitaire, set close in gold";
     case "coloured":
-      return "With coloured stones at the heart \u2014 emerald, ruby, or sapphire, sourced over weeks";
+      return "With coloured gemstones at the heart \u2014 emerald, ruby, or sapphire, sourced over weeks";
     case "open":
       return "We'd choose the stones together at the showroom, against the light";
   }
 }
 
-function leadTimePhrase(timeline: Timeline, pieceType: PieceType): string {
-  if (pieceType === "suite") {
-    if (timeline === "1m")
-      return "A full suite in a month is tight \u2014 doable, but we'd need to start the bench tonight.";
-    if (timeline === "1-3m")
-      return "A suite in this window is comfortable for our bench.";
-    if (timeline === "3-6m")
-      return "Three to six months is exactly the amount of time a proper suite asks for.";
-    return "Without a deadline, we can take the suite the full distance.";
-  }
-  if (timeline === "1m") return "A month is workable for a single piece like this.";
+function leadTimePhrase(timeline: Timeline): string {
+  if (timeline === "1m") return "A month is workable for a piece like this.";
   if (timeline === "1-3m") return "One to three months is the natural rhythm for this kind of piece.";
   if (timeline === "3-6m") return "Three to six months gives us room to make it well.";
   return "We'd take the time it asks for.";
@@ -130,7 +143,7 @@ export function suggestDesign(brief: DesignBrief): {
   const body = [
     `${stoneDescriptor(brief.stonePref)}.`,
     `${capitalize(styleDescriptor(brief.styleAxis))}, and ${weightDescriptor(brief.weightAxis)}.`,
-    leadTimePhrase(brief.timeline, brief.pieceType),
+    leadTimePhrase(brief.timeline),
   ].join(" ");
 
   return {

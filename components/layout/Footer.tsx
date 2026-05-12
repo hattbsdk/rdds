@@ -10,9 +10,12 @@ export default function Footer() {
           <div className="md:col-span-5">
             <Wordmark className="-ml-2 h-24 w-auto text-charcoal" />
             <p className="mt-6 max-w-sm text-pretty text-[0.95rem] leading-relaxed text-muted">
-              Four generations on the same bench in Hall Bazaar, Amritsar.
-              Diamond polki, kundan, gold, certified solitaires, and
-              bullion. Custom commissions; ships worldwide.
+              Four generations on the same bench on Mall Road, Amritsar.
+              Diamond, polki, kundan, gold, solitaires, and bullion.
+              Custom commissions; ships worldwide.
+            </p>
+            <p className="mt-4 text-[0.7rem] uppercase tracking-[0.28em] text-gold-deep">
+              {brand.localityTagline}
             </p>
           </div>
 
@@ -54,7 +57,7 @@ export default function Footer() {
             <ul className="mt-4 space-y-2 text-[0.95rem] text-graphite">
               <li>
                 <Link
-                  href="/#heritage"
+                  href="/#history"
                   className="transition-colors hover:text-charcoal"
                 >
                   Heritage
@@ -62,7 +65,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/#calculator"
+                  href="/#old-gold"
                   className="transition-colors hover:text-charcoal"
                 >
                   Investment calculator
@@ -70,7 +73,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/appointment"
+                  href="/#talk-design"
                   className="transition-colors hover:text-charcoal"
                 >
                   Book a viewing
@@ -85,7 +88,9 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Durga Das Seth Jewellers. All
             rights reserved.
           </p>
-          <p className="tracking-wide">Crafted in Amritsar, since 1932.</p>
+          <p className="tracking-wide">
+            Crafted in Amritsar, since {brand.founded}.
+          </p>
         </div>
       </div>
     </footer>

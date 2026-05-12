@@ -1,8 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Reveal from "@/components/ui/Reveal";
+import { brand, whatsappLink } from "@/lib/brand";
 import {
   suggestDesign,
   type Budget,
@@ -19,7 +20,7 @@ const occasions: { value: Occasion; label: string }[] = [
   { value: "anniversary", label: "Anniversary" },
   { value: "investment", label: "Investment" },
   { value: "everyday", label: "Everyday" },
-  { value: "reset", label: "Heirloom reset" },
+  { value: "reset", label: "Heirloom (Old) Jewellery Redesign" },
   { value: "other", label: "Something else" },
 ];
 
@@ -28,32 +29,38 @@ const pieces: { value: PieceType; label: string }[] = [
   { value: "earrings", label: "Earrings" },
   { value: "ring", label: "Ring" },
   { value: "bangles", label: "Bangles" },
-  { value: "suite", label: "Full suite" },
+  { value: "unsure", label: "Not sure yet / Other" },
   { value: "open", label: "Tell us" },
 ];
 
 const budgets: { value: Budget; label: string }[] = [
-  { value: "under-2", label: "Under \u20B92L" },
-  { value: "2-5", label: "\u20B92\u20135L" },
-  { value: "5-10", label: "\u20B95\u201310L" },
-  { value: "10-plus", label: "\u20B910L+" },
+  { value: "under-2", label: "Under ₹2L" },
+  { value: "2-5", label: "₹2–5L" },
+  { value: "5-10", label: "₹5–10L" },
+  { value: "10-plus", label: "₹10L+" },
+  { value: "10-15", label: "₹10L–₹15L" },
+  { value: "15-20", label: "₹15L–₹20L" },
+  { value: "20-plus", label: "₹20L+" },
   { value: "open", label: "Open" },
 ];
 
 const timelines: { value: Timeline; label: string }[] = [
   { value: "1m", label: "Within a month" },
-  { value: "1-3m", label: "1\u20133 months" },
-  { value: "3-6m", label: "3\u20136 months" },
+  { value: "1-3m", label: "1–3 months" },
+  { value: "3-6m", label: "3–6 months" },
   { value: "flexible", label: "Flexible" },
 ];
 
 const stones: { value: StonePref; label: string }[] = [
   { value: "polki", label: "Polki" },
   { value: "kundan", label: "Kundan" },
+  { value: "gold", label: "Gold" },
+  { value: "diamond", label: "Diamond" },
   { value: "solitaire", label: "Solitaire" },
-  { value: "coloured", label: "Coloured stones" },
-  { value: "open", label: "Open" },
+  { value: "coloured", label: "Coloured Gemstones" },
 ];
+
+type Contact = { name: string; phone: string; email: string };
 
 export default function Design() {
   const [brief, setBrief] = useState<DesignBrief>({
@@ -67,14 +74,72 @@ export default function Design() {
     notes: "",
   });
 
+  const [contact, setContact] = useState<Contact>({
+    name: "",
+    phone: "",
+    email: "",
+  });
+
+  const [sent, setSent] = useState(false);
+
   const suggestion = useMemo(() => suggestDesign(brief), [brief]);
 
   const update = <K extends keyof DesignBrief>(k: K, v: DesignBrief[K]) =>
     setBrief((b) => ({ ...b, [k]: v }));
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Build the labelled summary used by both the email and the WhatsApp pre-fill.
+    const labels: Array<[string, string]> = [
+      ["Name", contact.name],
+      ["Phone", contact.phone],
+      ["Email", contact.email],
+      [
+        "Occasion",
+        occasions.find((o) => o.value === brief.occasion)?.label ?? "",
+      ],
+      [
+        "Piece",
+        pieces.find((p) => p.value === brief.pieceType)?.label ?? "",
+      ],
+      [
+        "Budget",
+        budgets.find((b) => b.value === brief.budget)?.label ?? "",
+      ],
+      [
+        "Timeline",
+        timelines.find((t) => t.value === brief.timeline)?.label ?? "",
+      ],
+      [
+        "What kind of jewellery",
+        stones.find((s) => s.value === brief.stonePref)?.label ?? "",
+      ],
+      ["Style (1=traditional, 5=contemporary)", String(brief.styleAxis)],
+      ["Presence (1=restrained, 5=statement)", String(brief.weightAxis)],
+      ["Notes", brief.notes?.trim() || "—"],
+    ];
+    const body = labels.map(([k, v]) => `${k}: ${v}`).join("\n");
+
+    // Step 1 — open the email client with a structured draft.
+    const subject = `New Design Inquiry — ${contact.name || "Durga Das Seth"}`;
+    const mailto = `mailto:${brand.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+
+    // Step 2 — open WhatsApp in a new tab with the same brief pre-filled.
+    const whatsappMessage =
+      `Hey, Here are my preferences of what I want, can we schedule a call?\n\n${body}`;
+    const wa = whatsappLink(whatsappMessage);
+    setTimeout(() => {
+      window.open(wa, "_blank", "noopener,noreferrer");
+    }, 500);
+
+    setSent(true);
+  };
+
   return (
     <section
-      id="design"
+      id="talk-design"
       className="relative px-6 py-24 sm:py-32 lg:px-10 lg:py-40"
     >
       <div className="mx-auto max-w-6xl">
@@ -102,7 +167,10 @@ export default function Design() {
           </div>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+        <form
+          onSubmit={onSubmit}
+          className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12"
+        >
           {/* Left: questionnaire */}
           <Reveal delay={0.2} className="lg:col-span-7">
             <div className="rounded-[2rem] border border-line/70 bg-bone/40 p-2 shadow-[0_30px_60px_-30px_rgba(28,26,23,0.18)]">
@@ -142,7 +210,7 @@ export default function Design() {
                   </Group>
                 </div>
 
-                <Group label="Stone preference">
+                <Group label="What kind of jewellery">
                   <ChipRow
                     options={stones}
                     value={brief.stonePref}
@@ -175,6 +243,43 @@ export default function Design() {
                     className="w-full rounded-2xl border border-line bg-transparent px-4 py-3 text-[0.95rem] leading-relaxed text-charcoal outline-none transition focus:border-gold-deep"
                   />
                 </Group>
+
+                {/* Contact details — required before the brief can be sent. */}
+                <div className="border-t border-line/70 pt-8">
+                  <p className="text-[0.7rem] uppercase tracking-[0.28em] text-gold-deep">
+                    How we reach you
+                  </p>
+                  <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <ContactInput
+                      label="Your name"
+                      type="text"
+                      placeholder="Full name"
+                      value={contact.name}
+                      onChange={(v) => setContact((c) => ({ ...c, name: v }))}
+                      required
+                    />
+                    <ContactInput
+                      label="Phone"
+                      type="tel"
+                      placeholder="+91 XXXXX XXXXX"
+                      value={contact.phone}
+                      onChange={(v) => setContact((c) => ({ ...c, phone: v }))}
+                      required
+                    />
+                    <div className="sm:col-span-2">
+                      <ContactInput
+                        label="Email"
+                        type="email"
+                        placeholder="you@example.com"
+                        value={contact.email}
+                        onChange={(v) =>
+                          setContact((c) => ({ ...c, email: v }))
+                        }
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </Reveal>
@@ -193,37 +298,71 @@ export default function Design() {
                       From the bench
                     </p>
 
-                    <motion.div
-                      key={suggestion.headline + suggestion.body}
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
-                    >
-                      <p className="font-serif text-3xl leading-tight text-gold-soft sm:text-4xl">
-                        {suggestion.headline}
-                      </p>
-                      <p
-                        className="mt-5 font-serif text-lg italic leading-relaxed text-ivory/85 sm:text-xl"
-                        dangerouslySetInnerHTML={{ __html: suggestion.body }}
-                      />
-                    </motion.div>
+                    <AnimatePresence mode="wait" initial={false}>
+                      {sent ? (
+                        <motion.div
+                          key="sent"
+                          initial={{ opacity: 0, y: 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -6 }}
+                          transition={{
+                            duration: 0.5,
+                            ease: [0.32, 0.72, 0, 1],
+                          }}
+                        >
+                          <p className="font-serif text-3xl leading-tight text-gold-soft sm:text-4xl">
+                            Sent. We&rsquo;ll be in touch.
+                          </p>
+                          <p className="mt-4 text-[0.95rem] leading-relaxed text-ivory/80">
+                            We&rsquo;ve opened your email client and a
+                            WhatsApp draft. Send either one and we&rsquo;ll
+                            pick it up.
+                          </p>
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key={suggestion.headline + suggestion.body}
+                          initial={{ opacity: 0, y: 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{
+                            duration: 0.45,
+                            ease: [0.32, 0.72, 0, 1],
+                          }}
+                        >
+                          <p className="font-serif text-3xl leading-tight text-gold-soft sm:text-4xl">
+                            {suggestion.headline}
+                          </p>
+                          <p
+                            className="mt-5 font-serif text-lg italic leading-relaxed text-ivory/85 sm:text-xl"
+                            dangerouslySetInnerHTML={{
+                              __html: suggestion.body,
+                            }}
+                          />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
-                    <dl className="mt-2 space-y-3 border-t border-gold/20 pt-5 text-[0.92rem] leading-relaxed">
-                      <SuggestionRow
-                        label="Range"
-                        value={suggestion.meta.range}
-                      />
-                      <SuggestionRow
-                        label="Lead"
-                        value={suggestion.meta.lead}
-                      />
-                    </dl>
+                    {!sent && (
+                      <dl className="mt-2 space-y-3 border-t border-gold/20 pt-5 text-[0.92rem] leading-relaxed">
+                        <SuggestionRow
+                          label="Range"
+                          value={suggestion.meta.range}
+                        />
+                        <SuggestionRow
+                          label="Lead"
+                          value={suggestion.meta.lead}
+                        />
+                      </dl>
+                    )}
 
-                    <a
-                      href={`/appointment?from=design&piece=${brief.pieceType}&budget=${brief.budget}`}
-                      className="group mt-2 inline-flex items-center gap-3 self-start rounded-full bg-ivory pl-5 pr-1.5 py-2 text-sm tracking-wide text-charcoal transition-all duration-500 ease-soft hover:bg-gold-soft active:scale-[0.98]"
+                    <button
+                      type="submit"
+                      disabled={sent}
+                      className="group mt-2 inline-flex items-center gap-3 self-start rounded-full bg-ivory pl-5 pr-1.5 py-2 text-sm tracking-wide text-charcoal transition-all duration-500 ease-soft hover:bg-gold-soft active:scale-[0.98] disabled:opacity-60"
                     >
-                      <span>Continue at the showroom</span>
+                      <span>
+                        {sent ? "Sent" : "Send to the atelier"}
+                      </span>
                       <span className="flex h-8 w-8 items-center justify-center rounded-full bg-charcoal/10 transition-all duration-500 ease-soft group-hover:translate-x-0.5 group-hover:-translate-y-px">
                         <svg
                           width="13"
@@ -239,18 +378,20 @@ export default function Design() {
                           <path d="M5 3h6v6" />
                         </svg>
                       </span>
-                    </a>
+                    </button>
 
                     <p className="text-[0.78rem] leading-relaxed text-ivory/55">
-                      Indicative only. The real conversation usually starts
-                      with a sketch on the back of a card.
+                      Submitting opens your email client and a WhatsApp
+                      draft, both pre-filled with what you&rsquo;ve
+                      written. Send either; we&rsquo;ll reply within the
+                      day.
                     </p>
                   </div>
                 </div>
               </div>
             </div>
           </Reveal>
-        </div>
+        </form>
       </div>
     </section>
   );
@@ -305,6 +446,38 @@ function ChipRow<T extends string>({
         );
       })}
     </div>
+  );
+}
+
+function ContactInput({
+  label,
+  type,
+  placeholder,
+  value,
+  onChange,
+  required,
+}: {
+  label: string;
+  type: string;
+  placeholder: string;
+  value: string;
+  onChange: (v: string) => void;
+  required?: boolean;
+}) {
+  return (
+    <label className="block">
+      <span className="text-[0.7rem] uppercase tracking-[0.22em] text-gold-deep">
+        {label}
+      </span>
+      <input
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        required={required}
+        className="mt-2 w-full rounded-2xl border border-line bg-transparent px-4 py-3 text-[0.95rem] leading-relaxed text-charcoal outline-none transition focus:border-gold-deep"
+      />
+    </label>
   );
 }
 

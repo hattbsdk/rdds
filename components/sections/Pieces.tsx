@@ -7,15 +7,15 @@ const pieces = [
     n: "I",
     title: "A bridal polki suite",
     detail:
-      "Eighteen pieces, set in 22K — necklace, jhumar, kalire, choodiyan. Made for a Patiala wedding, restored in 2024 for the granddaughter.",
+      "Eighteen pieces in gold — necklace, jhumar, kalire, choodiyan. Made for a Patiala wedding, restored in 2024 for the granddaughter.",
     year: "c. 1972",
     feature: true,
   },
   {
     n: "II",
-    title: "The Hall Bazaar choker",
+    title: "The Mall Road choker",
     detail:
-      "Uncut polki diamonds against a ground of 22K, with two emerald drops sourced over a year.",
+      "Uncut polki diamonds against a gold ground, with two emerald drops sourced over a year.",
     year: "c. 2018",
   },
   {

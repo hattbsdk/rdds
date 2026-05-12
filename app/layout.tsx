@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s | Durga Das Seth Jewellers",
   },
   description:
-    "A heritage house in Amritsar specialising in diamond polki, kundan, gold jewellery, diamond solitaires, and gold and silver bullion. Custom commissions and worldwide shipping.",
+    "A heritage house in Amritsar specialising in diamond, polki, kundan, gold, solitaires, and gold and silver bullion. Custom commissions and worldwide shipping. Since 1919.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   ),

@@ -1,66 +1,60 @@
 // =============================================================================
 // HISTORICAL GOLD RATES — per-gram averages in INR for 24K gold.
 //
-// These are indicative annual averages drawn from public records. They are the
-// only number maintained by hand; rates for other purities are derived from
-// 24K. To extend the calculator, add another year-rate pair to RATES_24K.
+// The dataset below was supplied by the family. Values are 24K INR/gram per
+// year. Other purities (22K, 18K, 14K) are derived from 24K via KARAT_PURITY.
 //
-// To keep the calculator current, update CURRENT_RATE_PER_GRAM_24K below — or
-// swap the constant for a fetch from a free gold-price API (see fetchLiveRate
-// stub at the bottom of this file).
+// To extend, add another year-rate pair to RATES_24K (per gram, 24K, INR).
 // =============================================================================
 
-// Annual average INR rate per gram for 24K gold.
-// Source: indicative public averages — keep under review.
 const RATES_24K: Record<number, number> = {
-  1947: 88,
-  1950: 99,
-  1955: 79,
-  1960: 111,
-  1965: 71,
-  1970: 184,
-  1972: 202,
-  1975: 540,
-  1978: 685,
-  1980: 1330,
-  1982: 1645,
-  1985: 2130,
-  1988: 3130,
-  1990: 3200,
-  1992: 4334,
-  1995: 4680,
-  1998: 4045,
-  2000: 4400,
-  2002: 4990,
-  2005: 7000,
-  2007: 10800,
-  2010: 18500,
-  2011: 26400,
-  2012: 31050,
-  2013: 29600,
-  2014: 28006,
-  2015: 26343,
-  2016: 28623,
-  2017: 29667,
-  2018: 31438,
-  2019: 35220,
-  2020: 48651,
-  2021: 48720,
-  2022: 52670,
-  2023: 65330,
-  2024: 72500,
-  2025: 84500,
+  1970: 18,
+  1975: 40,
+  1980: 130,
+  1985: 200,
+  1990: 340,
+  1995: 470,
+  2000: 445,
+  2001: 455,
+  2002: 490,
+  2003: 525,
+  2004: 580,
+  2005: 640,
+  2006: 855,
+  2007: 975,
+  2008: 1050,
+  2009: 1450,
+  2010: 1845,
+  2011: 2450,
+  2012: 2870,
+  2013: 2840,
+  2014: 2740,
+  2015: 2520,
+  2016: 2570,
+  2017: 2900,
+  2018: 3130,
+  2019: 3550,
+  2020: 4820,
+  2021: 4760,
+  2022: 5250,
+  2023: 5950,
+  2024: 7200,
 };
 
 // =============================================================================
-// CURRENT RATE — used as the "today" price on the calculator's right-hand side.
-// Update this number as needed, or wire fetchLiveRate() to a provider.
+// CURRENT RATE — used as the "today" price.
+//
+// People in India usually quote gold "per 10 grams" (per tola). The family
+// asked us to display the familiar ₹95,300 figure, which is the per-10g rate;
+// the math, however, uses the per-gram equivalent so the formulas line up
+// cleanly with the historical table above.
 // =============================================================================
-export const CURRENT_RATE_PER_GRAM_24K = 95300; // INR / g, 24K — approx Apr 2026
+export const CURRENT_RATE_DISPLAY_PER_10G = 95300; // INR / 10g, 24K
+export const CURRENT_RATE_PER_GRAM_24K = CURRENT_RATE_DISPLAY_PER_10G / 10; // 9530
 
 // =============================================================================
 // PURITY MULTIPLIERS — fraction of pure (24K) gold by weight.
-// 22K is ~91.67%; 18K is 75%; 14K is ~58.33%; 10K is ~41.67%.
+// 22K is ~91.67%; 18K is 75%; 14K is ~58.33%.
 // =============================================================================
 export const KARAT_PURITY = {
   "24K": 1,
@@ -72,8 +66,8 @@ export const KARAT_PURITY = {
 export type Karat = keyof typeof KARAT_PURITY;
 
 // =============================================================================
-// CHARGES applied to the *initial* investment side only.
-// The current value side is treated as resale — no making charges, no GST.
+// CHARGES applied to the *initial* investment side only. Resale value (today)
+// is treated as metal-only, no charges.
 // =============================================================================
 export const MAKING_CHARGE_RATE = 0.15; // 15% of metal cost
 export const GST_RATE = 0.03; // 3% on metal cost (jewellery GST in India)
@@ -82,7 +76,6 @@ export const GST_RATE = 0.03; // 3% on metal cost (jewellery GST in India)
 // Public helpers
 // =============================================================================
 
-// Years available in the dataset, sorted ascending — used to populate dropdowns.
 export const HISTORICAL_YEARS: number[] = Object.keys(RATES_24K)
   .map(Number)
   .sort((a, b) => a - b);
@@ -107,7 +100,6 @@ function interpolate24K(year: number): number {
   if (year >= MAX_YEAR) return RATES_24K[MAX_YEAR];
   if (RATES_24K[year] !== undefined) return RATES_24K[year];
 
-  // Find the nearest known years on either side and interpolate linearly.
   let lower = MIN_YEAR;
   let upper = MAX_YEAR;
   for (const y of HISTORICAL_YEARS) {
@@ -121,6 +113,11 @@ function interpolate24K(year: number): number {
 
 // =============================================================================
 // CALCULATOR — single function so logic lives in one place and is easy to test.
+//
+//   Initial Investment   = rate_then × grams × 1.15 × 1.03
+//   Estimated Value Today = rate_now × grams
+//   Absolute Gain         = Estimated Value Today − Initial Investment
+//   Appreciation (%)      = (Absolute Gain ÷ Initial Investment) × 100
 // =============================================================================
 export type CalcInput = {
   year: number;
@@ -129,11 +126,11 @@ export type CalcInput = {
 };
 
 export type CalcResult = {
-  basePrice: number; // metal cost only, no charges
+  basePrice: number;
   makingCharge: number;
   gst: number;
-  initialInvestment: number; // base + making + gst
-  currentValue: number; // grams × today's rate, no charges
+  initialInvestment: number;
+  currentValue: number;
   absoluteGain: number;
   percentChange: number;
   ratePerGramThen: number;
@@ -178,19 +175,4 @@ export function formatINR(value: number): string {
     currency: "INR",
     maximumFractionDigits: 0,
   }).format(value);
-}
-
-// =============================================================================
-// Optional: swap CURRENT_RATE_PER_GRAM_24K for a live fetch.
-//
-// Free providers (no key required at the time of writing):
-//  - https://api.gold-api.com/price/XAU
-//  - https://www.goldapi.io (requires key)
-//
-// Wire this into a server route or a periodic build-time fetch — never call
-// directly from the client without rate limiting.
-// =============================================================================
-export async function fetchLiveRate(): Promise<number> {
-  // TODO: hook up to a real provider before going live.
-  return CURRENT_RATE_PER_GRAM_24K;
 }

@@ -5,6 +5,7 @@ import Pieces from "@/components/sections/Pieces";
 import Design from "@/components/sections/Design";
 import Calculator from "@/components/sections/Calculator";
 import Contact from "@/components/sections/Contact";
+import { brand } from "@/lib/brand";
 
 export default function Home() {
   const organizationJsonLd = {
@@ -12,19 +13,21 @@ export default function Home() {
     "@type": "JewelryStore",
     name: "Durga Das Seth Jewellers",
     description:
-      "Heritage jewellers in Amritsar — diamond polki, kundan, gold, certified solitaires, and gold and silver bullion. Custom commissions and worldwide shipping.",
+      "Heritage jewellers in Amritsar — diamond, polki, kundan, gold, solitaires, and gold and silver bullion. Custom commissions and worldwide shipping.",
     url:
       process.env.NEXT_PUBLIC_SITE_URL ||
       "https://durgadassethjewellers.in",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Hall Bazaar",
+      streetAddress: "33, The Mall",
       addressLocality: "Amritsar",
       addressRegion: "Punjab",
       postalCode: "143001",
       addressCountry: "IN",
     },
-    foundingDate: "1932",
+    telephone: brand.phone.tel,
+    email: brand.email,
+    foundingDate: String(brand.founded),
   };
 
   return (

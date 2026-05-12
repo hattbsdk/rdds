@@ -6,21 +6,23 @@ export const brand = {
   tagline: "Heritage jewellery, Amritsar",
   // Phone shown to visitors and used for tel: links + WhatsApp.
   phone: {
-    display: "+91 99999 99999",
-    tel: "+919999999999",
+    display: "+91 98151 39200",
+    tel: "+919815139200",
   },
-  whatsappNumber: "919999999999", // No '+' or spaces — used in wa.me URL
-  email: "atelier@durgadassethjewellers.in",
+  whatsappNumber: "919815139200", // No '+' or spaces — used in wa.me URL
+  email: "ramitseth17@gmail.com",
   address: {
-    line1: "Showroom — Hall Bazaar",
+    line1: "33, The Mall",
     line2: "Amritsar, Punjab 143001",
-    line3: "India",
-    // Placeholder coordinates near Hall Bazaar, Amritsar.
-    lat: 31.6336,
-    lng: 74.8723,
+    line3: "(next to Fern Residency hotel)",
+    // Coordinates supplied by the family — 33, The Mall, Amritsar.
+    lat: 31.642372842169568,
+    lng: 74.87009187116395,
   },
+  // Long-form locality tagline shown on hero panel and footer.
+  localityTagline: "Guru Bazaar · Lawrence Road · Mall Road · Amritsar",
   hours: "Mon–Sat · 11:00 to 20:00",
-  founded: 1932,
+  founded: 1919,
 } as const;
 
 export const whatsappLink = (message?: string) => {

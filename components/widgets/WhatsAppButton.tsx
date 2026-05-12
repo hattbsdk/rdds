@@ -6,7 +6,9 @@ import { whatsappLink } from "@/lib/brand";
 export default function WhatsAppButton() {
   return (
     <motion.a
-      href={whatsappLink("Hello, I would like to enquire about a piece.")}
+      href={whatsappLink(
+        "Welcome to the world of Raman Durga Das Seth. How can we help you?",
+      )}
       target="_blank"
       rel="noreferrer noopener"
       aria-label="Chat with us on WhatsApp"

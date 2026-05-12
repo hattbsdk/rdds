@@ -30,14 +30,14 @@ export default function Contact() {
             </Reveal>
             <Reveal delay={0.08}>
               <h2 className="mt-6 font-serif text-[2.2rem] leading-[1.05] tracking-tight text-balance sm:text-5xl lg:text-[3.4rem]">
-                The showroom is in Hall Bazaar.
+                The showroom is on Mall Road.
               </h2>
             </Reveal>
             <Reveal delay={0.16}>
               <p className="mt-6 max-w-[44ch] text-pretty text-[1rem] leading-relaxed text-graphite">
                 Walk in any day; for private viewings of polki suites or
-                certified solitaires, do call ahead and we&rsquo;ll set the
-                room aside. Tea is on us.
+                solitaires, do call ahead and we&rsquo;ll set the room
+                aside. Tea is on us.
               </p>
             </Reveal>
 
@@ -72,9 +72,11 @@ export default function Contact() {
 
             <Reveal delay={0.32}>
               <div className="mt-10 flex flex-wrap items-center gap-4">
-                <CTA href="/appointment">Book a viewing</CTA>
+                <CTA href="/#talk-design">Book a viewing</CTA>
                 <CTA
-                  href={whatsappLink("Hello, I&rsquo;d like to enquire about a piece.")}
+                  href={whatsappLink(
+                    "Welcome to the world of Raman Durga Das Seth. How can we help you?",
+                  )}
                   variant="ghost"
                   external
                 >

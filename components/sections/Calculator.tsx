@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
-  CURRENT_RATE_PER_GRAM_24K,
+  CURRENT_RATE_DISPLAY_PER_10G,
   MAX_YEAR,
   MIN_YEAR,
   calculateInvestment,
@@ -12,7 +12,7 @@ import {
 } from "@/lib/goldRates";
 import Reveal from "@/components/ui/Reveal";
 
-const KARATS: Karat[] = ["24K", "22K", "18K", "14K"];
+const KARATS: Karat[] = ["24K", "22K", "18K"];
 
 export default function Calculator() {
   const [year, setYear] = useState<number>(1985);
@@ -28,7 +28,7 @@ export default function Calculator() {
 
   return (
     <section
-      id="calculator"
+      id="old-gold"
       className="relative px-6 py-24 sm:py-32 lg:px-10 lg:py-40"
     >
       <div className="mx-auto max-w-6xl">
@@ -54,15 +54,15 @@ export default function Calculator() {
             </Reveal>
 
             <Reveal delay={0.24}>
-              <p className="mt-8 inline-flex items-center gap-2 text-xs text-muted">
-                <span className="h-1 w-1 rounded-full bg-gold" />
+              <p className="mt-8 inline-flex items-start gap-2 text-xs text-muted">
+                <span className="mt-1 h-1 w-1 flex-shrink-0 rounded-full bg-gold" />
                 <span>
                   Indicative only — based on annual average rates and a
                   current 24K reference of{" "}
                   <strong className="font-medium text-graphite">
-                    {formatINR(CURRENT_RATE_PER_GRAM_24K)}
-                  </strong>
-                  /g.
+                    {formatINR(CURRENT_RATE_DISPLAY_PER_10G)}
+                  </strong>{" "}
+                  per 10g.
                 </span>
               </p>
             </Reveal>

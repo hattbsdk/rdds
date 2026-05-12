@@ -6,11 +6,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Monogram } from "@/components/ui/Monogram";
 
 const links = [
-  { label: "Heritage", href: "/#heritage" },
+  { label: "Heritage", href: "/#history" },
   { label: "The House", href: "/#faces" },
   { label: "Pieces", href: "/#pieces" },
-  { label: "Design", href: "/#design" },
-  { label: "Calculator", href: "/#calculator" },
+  { label: "Design", href: "/#talk-design" },
+  { label: "Calculator", href: "/#old-gold" },
   { label: "Visit", href: "/#contact" },
 ];
 
@@ -69,7 +69,7 @@ export default function Nav() {
 
           <div className="flex items-center gap-2">
             <Link
-              href="/appointment"
+              href="/#talk-design"
               className="hidden items-center gap-2 rounded-full bg-charcoal pl-4 pr-1.5 py-1.5 text-[0.78rem] tracking-wide text-ivory transition-all duration-500 ease-soft hover:bg-graphite active:scale-[0.98] sm:inline-flex"
             >
               <span>Book a viewing</span>
@@ -151,7 +151,7 @@ export default function Nav() {
                 }}
               >
                 <Link
-                  href="/appointment"
+                  href="/#talk-design"
                   onClick={() => setOpen(false)}
                   className="mt-6 inline-flex items-center gap-2 rounded-full bg-charcoal px-6 py-3 text-sm text-ivory"
                 >
