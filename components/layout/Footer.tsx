@@ -1,6 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
 import { brand } from "@/lib/brand";
-import { Wordmark } from "@/components/ui/Wordmark";
 
 export default function Footer() {
   return (
@@ -8,7 +8,13 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-16 lg:px-10">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
-            <Wordmark className="-ml-2 h-24 w-auto text-charcoal" />
+            <Image
+              src="/brand/logos/wordmark-light.png"
+              alt="Raman Durga Das Seth"
+              width={900}
+              height={500}
+              className="h-auto w-44"
+            />
             <p className="mt-6 max-w-sm text-pretty text-[0.95rem] leading-relaxed text-muted">
               Four generations on the same bench on Mall Road, Amritsar.
               Diamond, polki, kundan, gold, solitaires, and bullion.

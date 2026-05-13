@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Monogram } from "@/components/ui/Monogram";
 
 const links = [
   { label: "Heritage", href: "/#history" },
@@ -46,11 +46,18 @@ export default function Nav() {
           <Link
             href="/#top"
             className="flex items-center gap-3 text-charcoal"
-            aria-label="Durga Das Seth Jewellers — home"
+            aria-label="Raman Durga Das Seth Jewellers — home"
           >
-            <Monogram className="h-9 w-9 text-gold-deep" />
-            <span className="hidden font-serif text-[1.05rem] tracking-[0.18em] leading-none sm:inline">
-              DURGA DAS SETH
+            <Image
+              src="/brand/logos/monogram.png"
+              alt=""
+              width={56}
+              height={56}
+              priority
+              className="h-9 w-9 object-contain"
+            />
+            <span className="hidden font-serif text-[0.92rem] tracking-[0.22em] leading-none text-gold-deep sm:inline">
+              RAMAN DURGA DAS SETH
             </span>
           </Link>
 

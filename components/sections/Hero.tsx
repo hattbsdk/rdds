@@ -1,6 +1,6 @@
+import Image from "next/image";
 import CTA from "@/components/ui/CTA";
 import Reveal from "@/components/ui/Reveal";
-import { Wordmark } from "@/components/ui/Wordmark";
 import { brand } from "@/lib/brand";
 
 export default function Hero() {
@@ -53,32 +53,34 @@ export default function Hero() {
           </Reveal>
         </div>
 
-        {/* Right column — typographic colophon. Height reduced ~30% per the
-            brand brief. Deep aubergine, gold ink. Reads like a stamped house
-            mark. Honest stand-in until photography lands. */}
+        {/* Right column — house mark in gold leaf, on the brand's forest green.
+            Reads like a stamped colophon. */}
         <div className="lg:col-span-5">
           <Reveal delay={0.2}>
             <div className="relative">
               <div className="rounded-[2rem] border border-line/70 bg-bone/40 p-2 shadow-[0_30px_60px_-30px_rgba(28,26,23,0.22)]">
                 <div
-                  className="relative overflow-hidden rounded-[calc(2rem-0.5rem)] bg-wine-deep"
+                  className="relative overflow-hidden rounded-[calc(2rem-0.5rem)] bg-green-deep"
                   style={{ aspectRatio: "10 / 9" }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-b from-wine via-wine-deep to-wine-deep" />
-                  <div className="absolute inset-x-12 top-10 h-px bg-gold/45" />
-                  <div className="absolute inset-x-12 bottom-10 h-px bg-gold/45" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-green via-green-deep to-green-deep" />
+                  <div className="absolute inset-x-12 top-10 h-px bg-gold/35" />
+                  <div className="absolute inset-x-12 bottom-10 h-px bg-gold/35" />
 
                   <div className="relative flex h-full flex-col items-center justify-center px-10 text-center text-gold-soft">
-                    {/* TODO: Replace logo/wordmark here with ALT Logo PNG when supplied */}
-                    <Wordmark
-                      className="w-full max-w-[260px]"
-                      showSubline={false}
+                    <Image
+                      src="/brand/logos/wordmark-light.png"
+                      alt="Raman Durga Das Seth"
+                      width={1000}
+                      height={560}
+                      priority
+                      className="w-full max-w-[320px]"
                     />
-                    <p className="mt-7 max-w-[24ch] font-serif text-base italic leading-snug text-gold-soft/80 sm:text-lg">
+                    <p className="mt-6 max-w-[24ch] font-serif text-base italic leading-snug text-gold-soft/85 sm:text-lg">
                       Trust, set in gold &mdash; one piece at a time, since
                       1919.
                     </p>
-                    <p className="mt-7 text-[0.66rem] uppercase tracking-[0.32em] text-gold-soft/55">
+                    <p className="mt-6 text-[0.66rem] uppercase tracking-[0.32em] text-gold-soft/55">
                       {brand.localityTagline}
                     </p>
                   </div>

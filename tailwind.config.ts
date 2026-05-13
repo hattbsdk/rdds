@@ -24,6 +24,10 @@ const config: Config = {
           DEFAULT: "var(--brand-wine)",
           deep: "var(--brand-wine-deep)",
         },
+        green: {
+          DEFAULT: "var(--brand-green)",
+          deep: "var(--brand-green-deep)",
+        },
       },
       fontFamily: {
         serif: ["var(--font-serif)", "Cormorant Garamond", "serif"],

@@ -14,13 +14,19 @@
   --brand-muted: #6b6660;
   --brand-line: #d8cfbe;
 
-  --brand-gold: #b08a4a;
-  --brand-gold-deep: #8a6936;
-  --brand-gold-soft: #d8b97f;
+  /* Gold sampled from the supplied wordmark — warmer, more saturated. */
+  --brand-gold: #c9a13a;
+  --brand-gold-deep: #a3812b;
+  --brand-gold-soft: #d2ac3a;
 
-  /* Single regal accent — deep aubergine. Used sparingly on one section. */
-  --brand-wine: #2e1b24;
-  --brand-wine-deep: #1f1118;
+  /* Brand green — sampled from the supplied dark logo (#1c3426). Used on
+     the hero panel, Pieces, and the Design suggestion panel. */
+  --brand-green: #1c3426;
+  --brand-green-deep: #142519;
+
+  /* Legacy aubergine kept around as fallback; not used by default. */
+  --brand-wine: #1c3426;
+  --brand-wine-deep: #142519;
 
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Manrope', ui-sans-serif, system-ui;
