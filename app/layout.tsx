@@ -1,23 +1,17 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Nav from "@/components/layout/Nav";
-import Footer from "@/components/layout/Footer";
-import WhatsAppButton from "@/components/widgets/WhatsAppButton";
 
 export const metadata: Metadata = {
-  title: {
-    default: "Durga Das Seth Jewellers — Heritage Jewellery, Amritsar",
-    template: "%s | Durga Das Seth Jewellers",
-  },
+  title: "Raman Durga Das Seth Jewellers — Coming Soon",
   description:
-    "A heritage house in Amritsar specialising in diamond, polki, kundan, gold, solitaires, and gold and silver bullion. Custom commissions and worldwide shipping. Since 1919.",
+    "A heritage house in Amritsar since 1919. Our new showroom at 33, Mall Road is almost ready.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   ),
   openGraph: {
     type: "website",
     locale: "en_IN",
-    siteName: "Durga Das Seth Jewellers",
+    siteName: "Raman Durga Das Seth Jewellers",
   },
 };
 
@@ -26,11 +20,8 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="grain-overlay">
-        <Nav />
+      <body className="grain-overlay bg-ivory">
         <main className="relative">{children}</main>
-        <Footer />
-        <WhatsAppButton />
       </body>
     </html>
   );
