@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Raman Durga Das Seth Jewellers — Coming Soon",
+  title: "Raman Durga Das Seth — Coming Soon",
   description:
     "A heritage house in Amritsar since 1919. Our new showroom at 33, Mall Road is almost ready.",
   metadataBase: new URL(
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    siteName: "Raman Durga Das Seth Jewellers",
+    siteName: "Raman Durga Das Seth",
   },
 };
 

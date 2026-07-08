@@ -20,7 +20,7 @@ function Hero() {
 
   return (
     <section
-      className="relative isolate flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-6 py-20"
+      className="relative isolate flex min-h-[100dvh] flex-col items-center overflow-hidden px-6"
       style={{ background: "var(--brand-green)" }}
     >
       {/* Ambient light + vignette */}
@@ -39,18 +39,23 @@ function Hero() {
         className="pointer-events-none absolute inset-x-8 bottom-8 h-px bg-gold/25 sm:inset-x-14 sm:bottom-12"
       />
 
+      {/* Invisible spacer that mirrors the scroll cue height, so the centred
+          content sits exactly in the middle of the viewport. */}
+      <div aria-hidden="true" className="h-24 shrink-0" />
+
       <motion.div
         initial={reduced ? false : { opacity: 0, scale: 0.96, filter: "blur(8px)" }}
         animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
         transition={{ duration: 1.4, ease: [0.32, 0.72, 0, 1] }}
-        className="relative flex w-full max-w-4xl flex-col items-center text-center"
+        className="relative flex w-full max-w-4xl flex-1 flex-col items-center justify-center text-center"
       >
         <Image
           src="/brand/logo-mark.png"
           alt="Raman Durga Das Seth"
-          width={554}
-          height={270}
+          width={1734}
+          height={846}
           priority
+          quality={90}
           className="w-[82vw] max-w-[600px] sm:w-[55vw] sm:max-w-[780px]"
         />
 
@@ -80,8 +85,8 @@ function Hero() {
         aria-label="Scroll down"
         initial={reduced ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 1 }}
-        className="mt-14 flex flex-col items-center gap-3 px-6 text-center text-ivory/90 transition-colors hover:text-ivory sm:mt-16"
+        transition={{ delay: 0.8, duration: 0.8 }}
+        className="flex h-24 shrink-0 flex-col items-center gap-3 px-6 pb-5 text-center text-ivory transition-colors hover:text-gold-soft"
       >
         <span className="text-[0.62rem] uppercase tracking-[0.3em] sm:tracking-[0.36em]">
           Scroll down for more information
@@ -89,7 +94,7 @@ function Hero() {
         <motion.span
           animate={reduced ? undefined : { y: [0, 8, 0] }}
           transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-          className="block h-8 w-px bg-gradient-to-b from-ivory/70 to-transparent sm:h-10"
+          className="block h-8 w-px bg-gradient-to-b from-ivory to-transparent sm:h-10"
         />
       </motion.a>
     </section>
@@ -188,11 +193,25 @@ function Guided() {
           </p>
         </Reveal>
 
-        <Reveal delay={0.15}>
-          <div className="mx-auto mt-10 h-px w-24 bg-gold/50" />
-        </Reveal>
       </div>
     </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Gold ornament divider between sections                             */
+/* ------------------------------------------------------------------ */
+
+function SectionDivider() {
+  return (
+    <div
+      aria-hidden="true"
+      className="flex items-center justify-center gap-4 bg-ivory py-1"
+    >
+      <span className="h-px w-16 bg-gold/50 sm:w-28" />
+      <span className="h-2 w-2 rotate-45 border border-gold/70" />
+      <span className="h-px w-16 bg-gold/50 sm:w-28" />
+    </div>
   );
 }
 
@@ -320,7 +339,7 @@ function FooterStrip() {
           Since {brand.founded} &middot; Amritsar
         </p>
         <p className="text-sm text-muted">
-          &copy; {new Date().getFullYear()} {brand.name}. All rights
+          &copy; {new Date().getFullYear()} Raman Durga Das Seth. All rights
           reserved.
         </p>
       </div>
@@ -335,6 +354,7 @@ export default function Home() {
     <>
       <Hero />
       <Guided />
+      <SectionDivider />
       <Showroom />
       <FooterStrip />
     </>
