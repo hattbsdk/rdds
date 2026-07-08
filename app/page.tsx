@@ -20,7 +20,7 @@ function Hero() {
 
   return (
     <section
-      className="relative isolate flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-6 pb-28 pt-10 sm:pb-24"
+      className="relative isolate flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-6 py-20"
       style={{ background: "var(--brand-green)" }}
     >
       {/* Ambient light + vignette */}
@@ -48,10 +48,10 @@ function Hero() {
         <Image
           src="/brand/logo-mark.png"
           alt="Raman Durga Das Seth"
-          width={1000}
-          height={563}
+          width={554}
+          height={270}
           priority
-          className="w-[88vw] max-w-[720px] sm:w-[60vw] sm:max-w-[860px]"
+          className="w-[82vw] max-w-[600px] sm:w-[55vw] sm:max-w-[780px]"
         />
 
         <motion.div
@@ -81,7 +81,7 @@ function Hero() {
         initial={reduced ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.6, duration: 1 }}
-        className="absolute bottom-8 flex flex-col items-center gap-3 px-6 text-center text-ivory/90 transition-colors hover:text-ivory sm:bottom-12"
+        className="mt-14 flex flex-col items-center gap-3 px-6 text-center text-ivory/90 transition-colors hover:text-ivory sm:mt-16"
       >
         <span className="text-[0.62rem] uppercase tracking-[0.3em] sm:tracking-[0.36em]">
           Scroll down for more information
