@@ -43,7 +43,7 @@ function Hero() {
         initial={reduced ? false : { opacity: 0, scale: 0.96, filter: "blur(8px)" }}
         animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
         transition={{ duration: 1.4, ease: [0.32, 0.72, 0, 1] }}
-        className="relative flex w-full max-w-2xl flex-col items-center text-center"
+        className="relative flex w-full max-w-4xl flex-col items-center text-center"
       >
         <Image
           src="/brand/logo-mark.png"
