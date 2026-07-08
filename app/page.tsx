@@ -208,9 +208,9 @@ function SectionDivider() {
       aria-hidden="true"
       className="flex items-center justify-center gap-4 bg-ivory py-1"
     >
-      <span className="h-px w-16 bg-gold/50 sm:w-28" />
-      <span className="h-2 w-2 rotate-45 border border-gold/70" />
-      <span className="h-px w-16 bg-gold/50 sm:w-28" />
+      <span className="h-px w-20 bg-gradient-to-l from-gold to-transparent sm:w-36" />
+      <span className="h-2.5 w-2.5 rotate-45 bg-gold" />
+      <span className="h-px w-20 bg-gradient-to-r from-gold to-transparent sm:w-36" />
     </div>
   );
 }
