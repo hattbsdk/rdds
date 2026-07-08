@@ -20,7 +20,7 @@ function Hero() {
 
   return (
     <section
-      className="relative isolate flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-6"
+      className="relative isolate flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-6 pb-28 pt-10 sm:pb-24"
       style={{ background: "var(--brand-green)" }}
     >
       {/* Ambient light + vignette */}
@@ -46,19 +46,19 @@ function Hero() {
         className="relative flex w-full max-w-2xl flex-col items-center text-center"
       >
         <Image
-          src="/brand/logo-full.svg"
-          alt="Raman Durga Das Seth Jewellers"
+          src="/brand/logo-mark.png"
+          alt="Raman Durga Das Seth"
           width={1000}
-          height={562}
+          height={563}
           priority
-          className="w-full max-w-[420px] sm:max-w-[520px]"
+          className="w-[88vw] max-w-[720px] sm:w-[60vw] sm:max-w-[860px]"
         />
 
         <motion.div
           initial={reduced ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6, ease: [0.32, 0.72, 0, 1] }}
-          className="mt-2 flex flex-col items-center"
+          className="mt-6 flex flex-col items-center sm:mt-8"
         >
           <div className="flex items-center gap-4">
             <span className="h-px w-10 bg-gold/40 sm:w-16" />
@@ -68,8 +68,8 @@ function Hero() {
             <span className="h-px w-10 bg-gold/40 sm:w-16" />
           </div>
 
-          <p className="mt-7 max-w-[36ch] font-serif text-xl italic leading-snug text-ivory/85 sm:text-2xl">
-            A new chapter of a story that began in {brand.founded}.
+          <p className="mt-6 max-w-[32ch] font-serif text-xl italic leading-snug text-ivory sm:text-2xl">
+            Our newest store, website coming soon
           </p>
         </motion.div>
       </motion.div>
@@ -81,15 +81,15 @@ function Hero() {
         initial={reduced ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.6, duration: 1 }}
-        className="absolute bottom-16 flex flex-col items-center gap-3 text-gold-soft/70 transition-colors hover:text-gold-soft sm:bottom-20"
+        className="absolute bottom-8 flex flex-col items-center gap-3 px-6 text-center text-ivory/90 transition-colors hover:text-ivory sm:bottom-12"
       >
-        <span className="text-[0.62rem] uppercase tracking-[0.36em]">
-          Scroll
+        <span className="text-[0.62rem] uppercase tracking-[0.3em] sm:tracking-[0.36em]">
+          Scroll down for more information
         </span>
         <motion.span
           animate={reduced ? undefined : { y: [0, 8, 0] }}
           transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-          className="block h-10 w-px bg-gradient-to-b from-gold/60 to-transparent"
+          className="block h-8 w-px bg-gradient-to-b from-ivory/70 to-transparent sm:h-10"
         />
       </motion.a>
     </section>
@@ -154,7 +154,7 @@ function Guided() {
   return (
     <section
       id="guided"
-      className="relative isolate overflow-hidden bg-ivory py-28 sm:py-40"
+      className="relative isolate overflow-hidden bg-ivory py-20 sm:py-36"
     >
       <div
         aria-hidden="true"
@@ -172,7 +172,7 @@ function Guided() {
           </h2>
         </Reveal>
 
-        <Reveal delay={0.2} className="mt-14 sm:mt-20">
+        <Reveal delay={0.2} className="mt-10 sm:mt-16">
           <FramedPhoto
             src="/photos/grandfather.jpg"
             alt="Our grandfather at the showroom"
@@ -181,7 +181,7 @@ function Guided() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <p className="mx-auto mt-10 max-w-[52ch] text-center text-pretty text-[1.02rem] leading-relaxed text-muted sm:text-lg">
+          <p className="mx-auto mt-8 max-w-[52ch] text-center text-pretty text-[1.02rem] leading-relaxed text-muted sm:text-lg">
             Every piece we make, every promise we keep &mdash; it all carries
             his hand. Four generations at the bench, and his standard is
             still the standard.
@@ -189,7 +189,7 @@ function Guided() {
         </Reveal>
 
         <Reveal delay={0.15}>
-          <div className="mx-auto mt-12 h-px w-24 bg-gold/50" />
+          <div className="mx-auto mt-10 h-px w-24 bg-gold/50" />
         </Reveal>
       </div>
     </section>
@@ -202,7 +202,7 @@ function Guided() {
 
 function Showroom() {
   return (
-    <section className="relative isolate overflow-hidden bg-bone/60 py-28 sm:py-40">
+    <section className="relative isolate overflow-hidden bg-bone/60 py-20 sm:py-36">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute bottom-[-25%] left-[-15%] -z-10 h-[55vh] w-[55vh] rounded-full bg-gold-soft/10 blur-[120px]"
@@ -219,7 +219,7 @@ function Showroom() {
           </h2>
         </Reveal>
 
-        <Reveal delay={0.2} className="mt-14 sm:mt-20">
+        <Reveal delay={0.2} className="mt-10 sm:mt-16">
           <FramedPhoto
             src="/photos/showroom.jpg"
             alt="Our new showroom"
@@ -228,9 +228,9 @@ function Showroom() {
         </Reveal>
 
         {/* Contact card */}
-        <Reveal delay={0.15} className="mt-16 sm:mt-24">
+        <Reveal delay={0.15} className="mt-10 sm:mt-20">
           <div className="overflow-hidden rounded-[2rem] bg-green-deep text-ivory shadow-[0_40px_80px_-40px_rgba(20,37,25,0.6)]">
-            <div className="relative px-8 py-12 sm:px-14 sm:py-16">
+            <div className="relative px-7 py-12 sm:px-14 sm:py-16">
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-x-10 top-7 h-px bg-gold/30"
