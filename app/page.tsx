@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 import {
   motion,
@@ -49,6 +50,14 @@ function Hero() {
         transition={{ duration: 1.4, ease: [0.32, 0.72, 0, 1] }}
         className="relative flex w-full max-w-4xl flex-1 flex-col items-center justify-center text-center"
       >
+        {/* The page had no <h1> at all. The logo is the visual heading, so
+            the real heading is provided to screen readers and search engines
+            here. The text matches what the logo says, plus the descriptor
+            people actually search for. */}
+        <h1 className="sr-only">
+          Raman Durga Das Seth — Jewellers in Amritsar since 1919
+        </h1>
+
         <Image
           src="/brand/logo-mark.png"
           alt="Raman Durga Das Seth"
@@ -334,7 +343,36 @@ function Showroom() {
 function FooterStrip() {
   return (
     <footer className="border-t border-line/70 bg-ivory">
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-6 py-10 text-center lg:px-10">
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 px-6 py-10 text-center lg:px-10">
+        {/* Internal links to the new pages. These matter: a page that nothing
+            links to is effectively invisible to search engines, even when it
+            is listed in the sitemap. */}
+        <nav
+          aria-label="More about Raman Durga Das Seth"
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[0.72rem] uppercase tracking-[0.22em] text-graphite"
+        >
+          <Link
+            href="/jewellers-in-amritsar"
+            className="transition-colors duration-300 hover:text-gold-deep"
+          >
+            Jewellers in Amritsar
+          </Link>
+          <span aria-hidden="true" className="h-3 w-px bg-line" />
+          <Link
+            href="/heritage"
+            className="transition-colors duration-300 hover:text-gold-deep"
+          >
+            Our Heritage
+          </Link>
+          <span aria-hidden="true" className="h-3 w-px bg-line" />
+          <Link
+            href="/our-name"
+            className="transition-colors duration-300 hover:text-gold-deep"
+          >
+            Our Name
+          </Link>
+        </nav>
+
         <p className="text-[0.68rem] uppercase tracking-[0.32em] text-gold-deep">
           Since {brand.founded} &middot; Amritsar
         </p>
