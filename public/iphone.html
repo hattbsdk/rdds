@@ -182,8 +182,8 @@
       <div class="card">
         <div class="plus">+1</div>
         <div class="step">Bonus 1</div>
-        <h3>Message us and follow us</h3>
-        <p>Send <strong id="kw1">IPHONE</strong> to our WhatsApp <em>and</em> follow <a class="inline" href="https://www.instagram.com/ramandurgadasseth" target="_blank" rel="noopener">@ramandurgadasseth</a> on Instagram.</p>
+        <h3>Follow and comment</h3>
+        <p>Follow <a class="inline" href="https://www.instagram.com/ramandurgadasseth" target="_blank" rel="noopener">@ramandurgadasseth</a> on Instagram <em>and</em> comment <strong>&ldquo;RDDS. Our DDS.&rdquo;</strong> on our Shubh Laabh Reel.</p>
       </div>
       <div class="card">
         <div class="plus">+1</div>
@@ -243,7 +243,7 @@
         <li><strong>Period.</strong> Purchases made from 3 November 2026 to 15 December 2026, 5:00 PM IST, qualify.</li>
         <li><strong>Who can take part.</strong> Customers aged 18 and above who can collect the prize in person in Amritsar. RDDS staff and their immediate families cannot take part.</li>
         <li><strong>Purchase tickets.</strong> One ticket for every full ₹25,000 of the final invoice value of new jewellery on a single bill. The minimum qualifying bill is ₹25,000. There is no upper limit on tickets. Bullion bars, coins and repairs do not qualify.</li>
-        <li><strong>Bonus tickets.</strong> Available only to customers holding at least one purchase ticket. Bonus 1 (WhatsApp message and Instagram follow) and Bonus 2 (Instagram story tagging @ramandurgadasseth) can each be earned once per customer. Referral bonus: one ticket for each referred person who makes a qualifying purchase in the period and names the referrer at billing, up to three per customer. Bonus actions must be shown to RDDS staff at the showroom.</li>
+        <li><strong>Bonus tickets.</strong> Available only to customers holding at least one purchase ticket. Bonus 1 (following @ramandurgadasseth on Instagram and commenting &ldquo;RDDS. Our DDS.&rdquo; on the RDDS Shubh Laabh Reel) and Bonus 2 (Instagram story tagging @ramandurgadasseth) can each be earned once per customer. Referral bonus: one ticket for each referred person who makes a qualifying purchase in the period and names the referrer at billing, up to three per customer. Bonus actions must be shown to RDDS staff at the showroom or sent as a screenshot to the RDDS WhatsApp number, 98140 52402.</li>
         <li><strong>Tickets and register.</strong> Each ticket carries a unique printed number. Tickets are placed in a sealed transparent box at the showroom, and each ticket number is recorded against the customer's name and mobile number in the RDDS register. The customer's ticket numbers are noted on their copy of the bill.</li>
         <li><strong>Returns.</strong> If a bill is cancelled or the jewellery is returned, the tickets for that bill are void. A winning ticket from a returned bill is void and a reserve ticket is used.</li>
         <li><strong>The draw.</strong> One winning ticket and two reserve tickets will be drawn by hand from all tickets in the box on Tuesday 15 December 2026 at 6:00 PM IST at the RDDS showroom, streamed live on Instagram and recorded. The winning number is matched against the register.</li>
@@ -277,7 +277,7 @@
   const COUNT_URL = '/api/iphone-count';
 
   // WhatsApp + keyword
-  document.getElementById('kw1').textContent = KEYWORD;
+  const kw1 = document.getElementById('kw1'); if (kw1) kw1.textContent = KEYWORD;
   document.getElementById('waBtn').href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(KEYWORD);
 
   // Calendar link
