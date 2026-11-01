@@ -4,7 +4,7 @@
  * Reads the "Public" tab of the draw's Google Sheet, published to the web as
  * CSV (totals only: tickets, customers, purchases — no customer data).
  * Set IPHONE_SHEET_CSV_URL in Vercel → Project → Settings → Environment
- * Variables. Until it is set, the page shows "Counting starts on 1 November".
+ * Variables. Until it is set, the page shows "Counting starts on 3 November".
  */
 
 export const revalidate = 60;
