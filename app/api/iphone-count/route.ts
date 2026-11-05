@@ -7,7 +7,9 @@
  * Variables. Until it is set, the page shows "Counting starts on 3 November".
  */
 
-export const revalidate = 60;
+// Always run on request (no build-time prerender, which froze the count at 0).
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function GET() {
   const url = process.env.IPHONE_SHEET_CSV_URL;
@@ -16,7 +18,7 @@ export async function GET() {
   }
 
   try {
-    const res = await fetch(url, { next: { revalidate: 60 } });
+    const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) throw new Error(`Sheet returned ${res.status}`);
     const text = await res.text();
 
@@ -28,7 +30,7 @@ export async function GET() {
 
     return Response.json(
       { ready: true, tickets: data.tickets ?? 0, customers: data.customers ?? 0 },
-      { headers: { "Cache-Control": "s-maxage=60, stale-while-revalidate=300" } },
+      { headers: { "Cache-Control": "public, max-age=0, s-maxage=20, must-revalidate" } },
     );
   } catch {
     return Response.json({ ready: false, tickets: null, customers: null });
